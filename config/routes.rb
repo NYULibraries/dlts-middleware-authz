@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  root 'test#home'
-  get 'test/home'
   get '/auth/:provider/callback' => 'application#authentication_callback'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  namespace :api do
+    namespace :v1 do
+      resources :auth_services, only: [:index, :show, :create, :update, :destroy]
+      resources :auth_ip_addresses, only: [:index, :show, :create, :update, :destroy]
+      resources :end_services, only: [:index, :show, :create, :update, :destroy]
+      resources :items, only: [:index, :show, :create, :update, :destroy]
+    end
+  end
 end

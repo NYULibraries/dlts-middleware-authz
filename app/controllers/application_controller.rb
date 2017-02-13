@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  include ActionController::Serialization
 
   def authentication_callback
     auth = request.env['omniauth.auth']
@@ -9,5 +9,11 @@ class ApplicationController < ActionController::Base
 
   def authenticate!
     redirect_to '/auth/nyulibraries' unless session[:auth] && (session[:auth]['credentials']['expires'] == false || session[:auth]['credentials']['expires_at'] > Time.now.to_i)
+  end
+  
+  private
+  def render_error(resource, status)
+    render json: resource, status: status, adapter: :json_api,
+           serializer: ActiveModel::Serializer::ErrorSerializer
   end
 end

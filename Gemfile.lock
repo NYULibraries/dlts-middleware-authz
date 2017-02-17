@@ -52,6 +52,7 @@ GEM
       tzinfo (~> 1.1)
     api-pagination (4.5.2)
     arel (7.1.4)
+    bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.0.6)
     case_transform (0.2)
@@ -211,6 +212,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   api-pagination
+  bcrypt (~> 3.1.7)
   byebug
   factory_girl_rails
   faker

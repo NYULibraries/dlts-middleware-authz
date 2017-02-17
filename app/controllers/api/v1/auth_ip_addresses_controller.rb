@@ -1,4 +1,4 @@
-class Api::V1::AuthIpAddressesController < ApplicationController
+class Api::V1::AuthIpAddressesController < Api::ApiController
   before_action :set_auth_ip_address, only: [:show, :update, :destroy]
 
   # GET /v1/auth_ip_addresss

@@ -1,4 +1,4 @@
-class Api::V1::EndServicesController < ApplicationController
+class Api::V1::EndServicesController < Api::ApiController
   before_action :set_end_service, only: [:show, :update, :destroy]
 
   # GET /v1/end_services

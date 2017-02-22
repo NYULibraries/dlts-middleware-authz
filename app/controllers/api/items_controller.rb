@@ -1,4 +1,4 @@
-class Api::V1::ItemsController < Api::ApiController
+class Api::ItemsController < Api::ApiController
   before_action :set_item, only: [:show, :update, :destroy]
 
   # GET /v1/items
@@ -13,7 +13,7 @@ class Api::V1::ItemsController < Api::ApiController
     render json: @item, status: :ok
   end
 
-  # POST /api/v1/items
+  # POST /api/items
   def create
     item = Item.new(item_params)
     if item.save!

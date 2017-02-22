@@ -1,29 +1,29 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items", type: :request do
+RSpec.describe "Api::Items", type: :request do
   context 'when api token is correct' do
     let(:api_key) { FactoryGirl.create(:api_key) }
-    describe 'GET /api/v1/items' do
+    describe 'GET /api/items' do
       it 'returns a list of items' do
         FactoryGirl.create_list(:item, 10)
-        get '/api/v1/items', params: {api_key: api_key.full_api_key}
+        get '/api/items', params: {api_key: api_key.full_api_key}
         expect(response).to have_http_status :success
         json = JSON.parse(response.body)
         expect(json.length).to eq(10)
       end
     end
 
-    describe 'GET /api/v1/items/:id' do
+    describe 'GET /api/items/:id' do
       let(:item) { FactoryGirl.create(:item) }
       it 'returns a single item' do
-        get "/api/v1/items/#{item.id}", params: {api_key: api_key.full_api_key}
+        get "/api/items/#{item.id}", params: {api_key: api_key.full_api_key}
         expect(response).to have_http_status :success
         json = JSON.parse(response.body)
         expect(json['token']).to eq(item.token)
       end
     end
 
-    describe 'POST /api/v1/items' do
+    describe 'POST /api/items' do
       it 'creates an item' do
         item_handle = Faker::Internet.unique.password(17, 17)
         item_token = Faker::Internet.unique.password(35, 35)
@@ -40,7 +40,7 @@ RSpec.describe "Api::V1::Items", type: :request do
             :'Content-Type' => 'application/json'
         }
 
-        post '/api/v1/items', params: items_params, headers: request_headers
+        post '/api/items', params: items_params, headers: request_headers
 
         expect(response).to have_http_status :created
         expect(Item.first.handle).to eq item_handle
@@ -49,7 +49,7 @@ RSpec.describe "Api::V1::Items", type: :request do
       end
     end
 
-    describe 'PUT /api/v1/items' do
+    describe 'PUT /api/items' do
       let(:item) { FactoryGirl.create(:item) }
       it 'updates an item' do
         new_item_handle = Faker::Internet.unique.password(17, 17)
@@ -63,14 +63,14 @@ RSpec.describe "Api::V1::Items", type: :request do
             :'Content-Type' => 'application/json'
         }
 
-        put "/api/v1/items/#{item.id}", params: items_params, headers: request_headers
+        put "/api/items/#{item.id}", params: items_params, headers: request_headers
 
         expect(response).to have_http_status :ok
         expect(Item.first.handle).to eq new_item_handle
       end
     end
 
-    describe 'PATCH /api/v1/items' do
+    describe 'PATCH /api/items' do
       let(:item) { FactoryGirl.create(:item) }
       it 'updates an item' do
         new_item_handle = Faker::Internet.unique.password(17, 17)
@@ -84,17 +84,17 @@ RSpec.describe "Api::V1::Items", type: :request do
             :'Content-Type' => 'application/json'
         }
 
-        put "/api/v1/items/#{item.id}", params: items_params, headers: request_headers
+        put "/api/items/#{item.id}", params: items_params, headers: request_headers
 
         expect(response).to have_http_status :ok
         expect(Item.first.handle).to eq new_item_handle
       end
     end
 
-    describe 'DELETE /api/v1/items' do
+    describe 'DELETE /api/items' do
       let(:item) { FactoryGirl.create(:item) }
       it 'deletes an item' do
-        delete "/api/v1/items/#{item.id}", params: {api_key: api_key.full_api_key}
+        delete "/api/items/#{item.id}", params: {api_key: api_key.full_api_key}
 
         expect(response).to have_http_status :no_content
         expect(Item.count).to eq 0

@@ -1,4 +1,4 @@
-class Api::V1::AuthIpAddressesController < Api::ApiController
+class Api::AuthIpAddressesController < Api::ApiController
   before_action :set_auth_ip_address, only: [:show, :update, :destroy]
 
   # GET /v1/auth_ip_addresss
@@ -13,7 +13,7 @@ class Api::V1::AuthIpAddressesController < Api::ApiController
     render json: @auth_ip_address, status: :ok
   end
 
-  # POST /api/v1/auth_ip_addresses
+  # POST /api/auth_ip_addresses
   def create
     ip_address = AuthIpAddress.new(auth_ip_address_params)
     if ip_address.save!

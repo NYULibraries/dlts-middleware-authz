@@ -1,4 +1,4 @@
-class Api::V1::AuthServicesController < Api::ApiController
+class Api::AuthServicesController < Api::ApiController
   before_action :set_auth_service, only: [:show, :update, :destroy]
 
   # GET /v1/auth_services

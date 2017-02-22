@@ -1,4 +1,4 @@
-class Api::V1::EndServicesController < Api::ApiController
+class Api::EndServicesController < Api::ApiController
   before_action :set_end_service, only: [:show, :update, :destroy]
 
   # GET /v1/end_services
@@ -13,7 +13,7 @@ class Api::V1::EndServicesController < Api::ApiController
     render json: @end_service, status: :ok
   end
 
-  # POST /api/v1/end_services
+  # POST /api/end_services
   def create
     end_service = EndService.new(end_service_params)
     if end_service.save

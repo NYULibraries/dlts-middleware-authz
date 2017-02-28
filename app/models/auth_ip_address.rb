@@ -6,6 +6,7 @@ class AuthIpAddress < ApplicationRecord
   serialize :ipv6_address, IPv6AddressSerializer
   validate :ipv4_xor_ipv6?
   has_and_belongs_to_many :items
+  has_and_belongs_to_many :auth_ip_address_groups
 
   def ipv4_xor_ipv6?
     if !ipv4_address ^ ipv6_address

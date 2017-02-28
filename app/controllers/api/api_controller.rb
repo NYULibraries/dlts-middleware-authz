@@ -12,6 +12,6 @@ class Api::ApiController < ApplicationController
     api_key_private = params[:api_key][24..47]
 
     api_key = ApiKey.where(api_key_public: api_key_public).first
-    render json: {'error' => api_key_private} unless api_key.api_key_private == api_key_private
+    render json: {error: 'API provided does not match any API keys on record.'} unless api_key.api_key_private == api_key_private
   end
 end

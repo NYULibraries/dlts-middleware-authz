@@ -8,4 +8,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do |config|
   config.on_failure do
     Rack::Response.new(['403 Unauthorized'], 403).finish
   end
+  OmniAuth.config.logger = Rails.logger
 end

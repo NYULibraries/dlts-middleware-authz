@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
 
     uri = URI(end_service.uri)
     query = Hash.new
-    {item_token: @item.token, session_token: session[:session]['token']}.each do |url_param, value|
+    {item_handle: @item.handle, session_token: session[:session]['token']}.each do |url_param, value|
       if uri.path.include? ":#{url_param}"
         uri.path = uri.path.gsub ":#{url_param}", value
       else
@@ -22,6 +22,6 @@ class ItemsController < ApplicationController
 
   private
   def set_item
-    @item = Item.where(token: params[:token]).first
+    @item = Item.where(handle: params[:handle]).first
   end
 end

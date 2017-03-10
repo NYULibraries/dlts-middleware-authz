@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # TODO: add a root route
   get '/auth/:provider/callback' => 'sessions#authentication_callback'
-  get '/item/:token' => 'items#fetch'
+  get '/item/:handle' => 'items#fetch'
   namespace :api do
     resources :auth_services, only: [:index, :show, :create, :update, :destroy]
     resources :auth_ip_addresses, only: [:index, :show, :create, :update, :destroy]

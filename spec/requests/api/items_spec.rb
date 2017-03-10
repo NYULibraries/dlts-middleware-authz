@@ -19,18 +19,16 @@ RSpec.describe "Api::Items", type: :request do
         get "/api/items/#{item.id}", params: {api_key: api_key.full_api_key}
         expect(response).to have_http_status :success
         json = JSON.parse(response.body)
-        expect(json['token']).to eq(item.token)
+        expect(json['handle']).to eq(item.handle)
       end
     end
 
     describe 'POST /api/items' do
       it 'creates an item' do
         item_handle = Faker::Internet.unique.password(17, 17)
-        item_token = Faker::Internet.unique.password(35, 35)
         item_end_service_id = FactoryGirl.create(:end_service).id
         items_params = {
             handle: item_handle,
-            token: item_token,
             end_service_id: item_end_service_id,
             api_key: api_key.full_api_key
         }.to_json
@@ -44,7 +42,6 @@ RSpec.describe "Api::Items", type: :request do
 
         expect(response).to have_http_status :created
         expect(Item.first.handle).to eq item_handle
-        expect(Item.first.token).to eq item_token
         expect(Item.first.end_service_id).to eq item_end_service_id
       end
     end

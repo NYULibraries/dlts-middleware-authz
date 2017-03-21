@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310165021) do
+ActiveRecord::Schema.define(version: 20170321171136) do
 
   create_table "api_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "api_key_public"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170310165021) do
     t.integer  "end_service_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "uri_extra"
     t.index ["end_service_id"], name: "index_items_on_end_service_id", using: :btree
     t.index ["handle"], name: "index_items_on_handle", unique: true, using: :btree
   end

@@ -1,14 +1,15 @@
 class ApplicationController < ActionController::Base
   include ActionController::Serialization
 
-  def authentication_callback
-    auth = request.env['omniauth.auth']
-    session[:auth] = auth
-    redirect_to '/' # TODO: make this redirect back to the asset, or a denied page if needed?
-  end
-
   def authenticate!
-    redirect_to '/auth/nyulibraries' unless session[:auth] && (session[:auth]['credentials']['expires'] == false || session[:auth]['credentials']['expires_at'] > Time.now.to_i)
+    my_session = false
+    my_session = Session.find(session[:session]['id']) if session[:session]
+    unless my_session && (my_session.expires_at > Time.now.utc)
+      my_session.destroy if my_session
+      session.delete :session
+      session[:redirect_to] = request.fullpath
+      redirect_to '/auth/nyulibraries'
+    end
   end
   
   private

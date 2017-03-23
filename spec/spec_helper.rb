@@ -96,4 +96,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # omniauth -> test mode
+  require 'omniauth'
+  OmniAuth.config.test_mode = true
 end

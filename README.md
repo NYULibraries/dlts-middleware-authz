@@ -33,3 +33,7 @@ This key is intentionally only ever returned and never stored or printed to the 
 ## Test Suite
 
 To run the test suite, you simply need to run `bin/rake` after setting up the repository.
+
+## Additional Rake Tasks
+
+`bin/rake session:cleanup` - cleans up sessions that are expired. I recommend making a cron to do this automatically in production.

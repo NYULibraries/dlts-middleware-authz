@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :api do
+    get 'sessions/verify'
+  end
+
   # TODO: add a root route
   get '/auth/:provider/callback' => 'sessions#authentication_callback'
   get '/item/:handle' => 'items#fetch'

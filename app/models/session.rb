@@ -2,6 +2,8 @@ class Session < ApplicationRecord
   validates_uniqueness_of :token
   before_create :generate_token
   before_create :set_expiry
+  scope :alive, -> { where alive? }
+  scope :expired, -> { where expired? }
 
   protected
 
@@ -14,5 +16,14 @@ class Session < ApplicationRecord
 
   def set_expiry
     self.expires_at = 2.hours.from_now
+  end
+
+  private
+  def self.alive?
+    self.arel_attribute(:expires_at).gt(Time.now)
+  end
+
+  def self.expired?
+    self.arel_attribute(:expires_at).lteq(Time.now)
   end
 end

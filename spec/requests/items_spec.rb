@@ -18,18 +18,18 @@ RSpec.describe 'Items', type: :request do
         uri.query = {
             item_handle: item.handle,
             session_token: session[:session]['token'],
-            item_uri_extra: item.uri_extra
+            item_uri_fragment: item.uri_fragment
         }.to_query
         expect(response).to redirect_to(uri.to_s)
       end
     end
 
     context 'It interpolates strings if it can' do
-      let (:end_service) { FactoryGirl.create(:end_service, uri: 'https://example.com/:item_uri_extra/:session_token/:item_handle') }
+      let (:end_service) { FactoryGirl.create(:end_service, uri: 'https://example.com/:item_uri_fragment/:session_token/:item_handle') }
       let (:item) { FactoryGirl.create(:item, end_service: end_service) }
 
       it do
-        expect(response).to redirect_to("https://example.com/#{item.uri_extra}/#{session[:session]['token']}/#{item.handle}")
+        expect(response).to redirect_to("https://example.com/#{item.uri_fragment}/#{session[:session]['token']}/#{item.handle}")
       end
     end
   end

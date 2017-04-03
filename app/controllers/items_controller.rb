@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
     {
         item_handle: @item.handle,
         session_token: session[:session]['token'],
-        item_uri_extra: @item.uri_extra
+        item_uri_fragment: @item.uri_fragment
     }.each do |url_param, value|
       if uri.path.include? ":#{url_param}"
         uri.path = uri.path.gsub ":#{url_param}", value

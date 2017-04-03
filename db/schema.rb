@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20170321171136) do
     t.integer  "end_service_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.string   "uri_extra"
+    t.string   "uri_fragment"
     t.index ["end_service_id"], name: "index_items_on_end_service_id", using: :btree
     t.index ["handle"], name: "index_items_on_handle", unique: true, using: :btree
   end

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'cgi'
 
 RSpec.describe 'Items', type: :request do
   describe 'get /items' do
@@ -29,7 +30,7 @@ RSpec.describe 'Items', type: :request do
       let (:item) { FactoryGirl.create(:item, end_service: end_service) }
 
       it do
-        expect(response).to redirect_to("https://example.com/#{item.uri_fragment}/#{session[:session]['token']}/#{item.handle}")
+        expect(response).to redirect_to("https://example.com/#{item.uri_fragment.gsub(' ', '+')}/#{session[:session]['token']}/#{item.handle}")
       end
     end
   end

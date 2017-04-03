@@ -7,7 +7,11 @@ class ItemsController < ApplicationController
 
     uri = URI(end_service.uri)
     query = Hash.new
-    {item_handle: @item.handle, session_token: session[:session]['token']}.each do |url_param, value|
+    {
+        item_handle: @item.handle,
+        session_token: session[:session]['token'],
+        item_uri_fragment: @item.uri_fragment
+    }.each do |url_param, value|
       if uri.path.include? ":#{url_param}"
         uri.path = uri.path.gsub ":#{url_param}", value
       else

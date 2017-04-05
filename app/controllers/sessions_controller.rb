@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def authentication_callback
-    my_session = Session.create!(oauth_response: request.env['omniauth.auth'])
+    my_session = Session.create!(data: request.env['omniauth.auth'])
     session[:session] = my_session
     redirect_uri = session[:redirect_to] || '/'
     session.delete :redirect_uri

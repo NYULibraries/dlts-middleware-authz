@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
     redirect_to redirect_uri
   end
 
-  def self.create_ip_session(session, request)
-    my_session = Session.create!(data: {current_ip: request.ip})
-    session[:session] = my_session
+  def self.create_ip_session(session)
+    # noinspection RubyStringKeysInHashInspection
+    session[:session] = {'token' => 'IP_BASED_AUTH'}
   end
 end

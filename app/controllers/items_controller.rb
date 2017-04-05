@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
 
   def auth_item!
     if current_ip_whitelisted?
-      SessionsController.create_ip_session session, request
+      SessionsController.create_ip_session session
       return
     end
 

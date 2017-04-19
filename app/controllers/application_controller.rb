@@ -1,10 +1,9 @@
 class ApplicationController < ActionController::Base
   include ActionController::Serialization
 
-  def authenticate!
-    my_session = false
+  def authenticate!(providers = [])
     my_session = Session.find(session[:session]['id']) if session[:session]
-    unless my_session && (my_session.expires_at > Time.now.utc)
+    unless my_session&.active?(providers)
       my_session.destroy if my_session
       session.delete :session
       session[:redirect_to] = request.fullpath

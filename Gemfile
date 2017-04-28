@@ -37,6 +37,7 @@ group :development, :test do
   gem 'faker'
   gem 'guard'
   gem 'guard-rspec', require: false
+  gem 'pry-rails'
 end
 
 group :development do

@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item
-  before_action :authenticate!
+  before_action :auth_item!
 
   def fetch
     end_service = @item.end_service
@@ -26,6 +26,25 @@ class ItemsController < ApplicationController
 
   private
   def set_item
-    @item = Item.where(handle: params[:handle]).first
+    @item = Item.includes(:auth_ip_addresses)
+                .includes(:auth_services)
+                .where(handle: params[:handle]).first
+  end
+
+  def auth_item!
+    if current_ip_whitelisted?
+      SessionsController.create_ip_session session
+      return
+    end
+
+    if @item.auth_services.any?
+      authenticate!
+    else
+      head :unauthorized
+    end
+  end
+
+  def current_ip_whitelisted?
+    @item.auth_ip_addresses.any? { |auth_ip_address| request.ip == auth_ip_address.ipv4_address.to_s }
   end
 end

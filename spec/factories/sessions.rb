@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :session do
-    oauth_response ''
+    data ''
   end
 end

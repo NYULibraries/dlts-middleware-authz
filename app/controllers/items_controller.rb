@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
     end
 
     if @item.auth_services.any?
-      authenticate!
+      authenticate! @item.auth_services.pluck(:provider)
     else
       head :unauthorized
     end

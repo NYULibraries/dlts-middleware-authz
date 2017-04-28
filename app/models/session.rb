@@ -5,6 +5,13 @@ class Session < ApplicationRecord
   scope :alive, -> { where alive? }
   scope :expired, -> { where expired? }
 
+  def active?(providers = {})
+    return true unless self.expires_at
+    return false unless self.expires_at > Time.now.utc
+    return true if providers.empty?
+    providers.any? { |provider| self.data['provider'] == provider }
+  end
+
   protected
 
   def generate_token

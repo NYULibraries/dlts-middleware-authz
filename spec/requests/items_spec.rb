@@ -47,7 +47,7 @@ RSpec.describe 'Items', type: :request do
         3.times { follow_redirect! }
       end
 
-      context 'Item redirects to the end_service URI with the proper params' do
+      describe 'Item redirects to the end_service URI with the proper params' do
         let (:item) { FactoryGirl.create(:item, :auth_service) }
         let (:end_service) { item.end_service }
 
@@ -63,11 +63,23 @@ RSpec.describe 'Items', type: :request do
         end
       end
 
-      context 'Item interpolates strings if it can' do
+      describe 'Item interpolates strings if it can' do
         it do
           expect(response).to redirect_to("https://example.com/#{item.uri_fragment.gsub(' ', '+')}/#{session[:session]['token']}/#{item.handle}")
         end
       end
+    end
+
+    context 'Item has an auth service that is not part of the session' do
+      let (:end_service) {FactoryGirl.create(:end_service, uri: 'https://example.com/:item_uri_fragment/:session_token/:item_handle')}
+      let (:item) {FactoryGirl.create(:item, :auth_service, end_service: end_service, auth_services: [AuthService.new(name: 'shibboleth')])}
+      before do
+        get "/item/#{item.handle}"
+        # follow 3 redirects to auth and come back
+        3.times {follow_redirect!}
+      end
+
+      it {expect(response).to have_http_status(:redirect)}
     end
   end
 end

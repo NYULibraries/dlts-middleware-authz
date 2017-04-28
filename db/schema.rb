@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321171136) do
+ActiveRecord::Schema.define(version: 20170405152531) do
 
   create_table "api_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "api_key_public"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170321171136) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "provider"
     t.index ["name"], name: "index_auth_services_on_name", unique: true, using: :btree
   end
 
@@ -78,8 +79,8 @@ ActiveRecord::Schema.define(version: 20170321171136) do
     t.string   "token"
     t.json     "data"
     t.datetime "expires_at"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["token"], name: "index_sessions_on_token", unique: true, using: :btree
   end
 

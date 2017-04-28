@@ -47,8 +47,8 @@ RSpec.configure do |config|
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-# The settings below are suggested to provide a good initial experience
-# with RSpec, but feel free to customize to your heart's content.
+  # The settings below are suggested to provide a good initial experience
+  # with RSpec, but feel free to customize to your heart's content.
 =begin
   # This allows you to limit a spec run to individual examples or groups
   # you care about by tagging them with `:focus` metadata. When nothing
@@ -100,4 +100,41 @@ RSpec.configure do |config|
   # omniauth -> test mode
   require 'omniauth'
   OmniAuth.config.test_mode = true
+  # noinspection RubyStringKeysInHashInspection
+  OmniAuth.config.mock_auth[:nyulibraries] = {
+      'id' => nil,
+      'user_id' => nil,
+      'provider' => 'facebook',
+      'uid' => '123456789',
+      'properties' => {
+          'nickname' => 'developer',
+          'email' => 'developer@library.edu',
+          'name' => 'Dev Eloper',
+          'first_name' => 'Dev',
+          'last_name' => 'Eloper',
+          'image' => 'http://graph.facebook.com/123456789/picture',
+          'urls' => {
+              'Facebook' => 'https://www.facebook.com/developer'
+          },
+          'verified' => 'true',
+          'extra' => {
+              'raw_info' => {
+                  'id' => '123456789',
+                  'name' => 'Dev Eloper',
+                  'first_name' => 'Dev',
+                  'last_name' => 'Eloper',
+                  'link' => 'https:www.facebook.com/developer',
+                  'gender' => 'male',
+                  'email' => 'developer@library.edu',
+                  'timezone' => -5,
+                  'locale' => 'en_US',
+                  'verified' => true,
+                  'updated_time' => '2014-01-21T14:53:00+0000',
+                  'username' => 'developer'
+              }
+          }
+      },
+      'created_at' => nil,
+      'updated_at' => nil
+  }
 end

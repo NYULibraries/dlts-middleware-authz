@@ -16,6 +16,7 @@ gem 'active_model_serializers'
 gem 'rack-cors'
 gem 'will_paginate'
 gem 'api-pagination'
+gem 'rack-attack'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
